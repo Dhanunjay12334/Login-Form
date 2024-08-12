@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>
+        project (login form)
+    </title>
+    <style>
+        fieldset {
+            margin-left: 550px;
+            width: fit-content;
+            margin-top: 100px;
+            background-color: rgb(20, 223, 230);
+            border: 2px solid black;
+            border-radius: 10px;
+            background-image: url("https://img.freepik.com/premium-vector/abstract-vector-3d-background-with-bends-wave_395079-6128.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+
+        }
+
+        body {
+            background-image: url("https://getwallpapers.com/wallpaper/full/4/8/2/303475.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        input {
+            width: 160px;
+        }
+
+        #gend {
+            width: 52px;
+        }
+
+        label {
+            display: inline-block;
+            width: 100px;
+            margin: 0px 15px 5px 15px;
+            font-weight: bold;
+            color: aqua;
+        }
+
+        textarea {
+            margin-left: 15px;
+        }
+
+        #button1 {
+            margin-left: 40%;
+            font-size: 25px;
+            background-color: rgb(8, 8, 155);
+            color: white;
+            border-radius: 5px;
+        }
+
+        div {
+            margin: 20px;
+        }
+
+        #para {
+            display: block;
+            background-color: red;
+        }
+
+        table {
+            margin-top: 50px;
+            /* margin-left: 200px; */
+            width: 100%;
+
+        }
+
+        table,
+        tr,
+        td {
+            border: 1px solid;
+            border-collapse: collapse;
+        }
+
+        thead,
+        th {
+            background-color: gray;
+            border: 2px solid;
+            border-collapse: collapse;
+        }
+
+        tbody {
+            background-color: yellow;
+        }
+
+        table {
+            width: 100%;
+            height: 50%;
+        }
+
+        td {
+            text-align: center
+        }
+
+        span {
+            display: inline-block;
+            font-weight: bolder;
+            text-align: end;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <fieldset>
+
+        <div>
+            <label>User name </label><span>:</span>
+            <input id="user" type="text" placeholder="User name" />
+        </div>
+        <p id="userErr" style="color:red;display:none;text-align: center;"></p>
+
+
+        <div>
+            <label>E mail </label><span>:</span>
+            <input id="mail" type="email" placeholder="E mail" />
+        </div>
+        <p id="mailErr" style="color:red;display:none;text-align: center;"></p>
+
+        <div>
+            <label>Mobile no </label><span>:</span>
+            <input id="mobile" type="number" placeholder="Mobile no." />
+        </div>
+        <p id="mobileErr" style="color:red;display:none;text-align: center;"></p>
+
+        <div>
+            <label>Gender </label><span>:</span>
+            <input type="radio" name="gender" id="gend" value="Male" /><span style="font-weight: bold;">M</span>
+            <input type="radio" name="gender" id="gend" value="Female" /><span style="font-weight: bold;">F</span>
+        </div>
+        <p id="genderErr" style="color:red;display:none;text-align: center;"></p>
+
+        <div>
+            <label>Qualification </label><span>:</span>
+            <select name="qual" id="qual">
+                <option value="">Select</option>
+                <option value="SSC">SSC</option>
+                <option value="Inter">Inter</option>
+                <option value="Degree">Degree</option>
+                <option value="B.Tech">B.Tech</option>
+            </select>
+        </div>
+        <p id="qualErr" style="color:red;display:none;text-align: center;"></p>
+
+        <div>
+            <label>Address </label><span>:</span><br />
+            <textarea id="address" cols="38" rows="8" placeholder="Enter your address"></textarea>
+        </div>
+        <p id="addErr" style="color:red;display:none;text-align: center;"></p>
+
+
+        <div>
+            <button id="button1" onclick="getdata()">Submit</button>
+        </div>
+
+    </fieldset>
+
+    <table id="tabledata">
+        <thead>
+            <tr>
+                <th>User name</th>
+                <th>E mail</th>
+                <th>Mobile no</th>
+                <th>Gender</th>
+                <th>Qualification</th>
+                <th>Address</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Dhanunjay</td>
+                <td>dhanunjaydudekula786@gmail.com</td>
+                <td>8008978425</td>
+                <td>Male</td>
+                <td>B.Tech</td>
+                <td>AP</td>
+                <td><button>edit</button>--<button>delete</button></td>
+            </tr>
+        </tbody>
+    </table>
+    <script>
+        let selectRow = null
+        const getdata = () => {
+            let vald = {}
+
+            function isValidEmail(email) {
+                const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                return regex.test(email);
+            }
+            function isValidphone(phone) {
+                const regex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+                return regex.test(phone);
+            }
+            if (document.getElementById("user").value === "") {
+                Object.assign(vald, { 'userErr': 'User name field is mandatory' })
+            }
+            if (document.getElementById("mail").value === "") {
+                Object.assign(vald, { 'mailErr': 'E-mail field is mandatory' })
+            } else {
+                if (!(isValidEmail(document.getElementById("mail").value))) {
+                    Object.assign(vald, { 'mailErr': 'mail should be proper' })
+                }
+            }
+            if (document.getElementById("mobile").value === "") {
+                Object.assign(vald, { 'mobileErr': 'mobile number field is mandatory' })
+            } else {
+                if (!(isValidphone(document.getElementById("mobile").value))) {
+                    Object.assign(vald, { 'mobileErr': 'mobile number should be 10 digits' })
+                }
+            }
+            if (!(document.querySelector("input[name='gender']:checked"))) {
+                Object.assign(vald, { 'genderErr': 'gender is mandatory' })
+            }
+            if (document.getElementById("qual").value === "") {
+                Object.assign(vald, { 'qualErr': 'Qualification field is mandatory' })
+            }
+            if (document.getElementById("address").value === "") {
+                Object.assign(vald, { 'addErr': 'Address field is mandatory' })
+            }
+            let b = ['userErr', 'mailErr', 'mobileErr', 'genderErr', 'qualErr', 'addErr']
+            x = Object.keys(vald)
+            let a = b.forEach((val, i, arr) => {
+                if (val in vald) {
+                    err = document.getElementById(val)
+                    err.style.display = 'block'
+                    err.innerText = vald[val]
+                }
+                else {
+                    err = document.getElementById(val)
+                    err.style.display = 'none'
+                }
+            })
+            if (Object.keys(vald).length == 0) {
+                if (!!selectRow) {
+                    updateData()
+                } 
+                else {
+                    createData()
+                }
+            }
+
+        }
+        const form1 = () => {
+            document.getElementById("user").value = ''
+            document.getElementById("mail").value = ''
+            document.getElementById("mobile").value = ''
+            document.getElementById("address").value = ''
+            document.querySelector("input[name='gender']:checked").checked = false
+            document.getElementById("qual").value = ''
+        }
+        const details = (data) => {
+            const table = document.getElementById("tabledata").getElementsByTagName("tbody")[0]
+            const row = table.insertRow(table.children.length)
+            let cell1 = row.insertCell(0).innerHTML = data.user
+            let cell2 = row.insertCell(1).innerHTML = data.mail
+            let cell3 = row.insertCell(2).innerHTML = data.mobile
+            let cell4 = row.insertCell(3).innerHTML = data.gender
+            let cell5 = row.insertCell(4).innerHTML = data.qualification
+            let cell6 = row.insertCell(5).innerHTML = data.Address
+            let cell7 = row.insertCell(6).innerHTML = `<button onclick='handleEdit(this)'>edit</button>--<button onclick='handleDelete(this)'>delete</button>`
+            form1()
+
+        }
+        const handleEdit = (data1) => {
+            selectRow = data1.parentElement.parentElement
+            if (window.confirm("Do you really want to edit?")) {
+                document.getElementById("user").value = selectRow.cells[0].innerHTML
+                document.getElementById("mail").value = selectRow.cells[1].innerHTML
+                document.getElementById("mobile").value = selectRow.cells[2].innerHTML
+                document.getElementById("address").value = selectRow.cells[5].innerHTML
+                // document.querySelector("input[name='gender']:checked").checked=selectRow.cells[3].innerHTML
+                document.querySelector("input[name='gender'][value=" + selectRow.cells[3].innerHTML + "]").checked = true;
+                document.getElementById("qual").value = selectRow.cells[4].innerHTML
+            }
+        }
+        const updateData = () => {
+            selectRow.cells[0].innerHTML = document.getElementById("user").value
+            selectRow.cells[1].innerHTML = document.getElementById("mail").value
+            selectRow.cells[2].innerHTML = document.getElementById("mobile").value
+            selectRow.cells[5].innerHTML = document.getElementById("address").value
+            selectRow.cells[3].innerHTML = document.querySelector("input[name='gender']:checked").value
+            selectRow.cells[4].innerHTML = document.getElementById("qual").value
+            form1()
+        }
+
+        const createData = () => {
+            let userdata1 = document.getElementById("user").value
+            let userdata2 = document.getElementById("mail").value
+            let userdata3 = document.getElementById("mobile").value
+            let userdata4 = document.getElementById("address").value
+            let userdata5 = document.querySelector("input[name='gender']:checked").value
+            let userdata6 = document.getElementById("qual").value
+            let data = {}
+            Object.assign(data, { 'user': userdata1 })
+            Object.assign(data, { 'mail': userdata2 })
+            Object.assign(data, { 'mobile': userdata3 })
+            Object.assign(data, { 'Address': userdata4 })
+            Object.assign(data, { 'gender': userdata5 })
+            Object.assign(data, { 'qualification': userdata6 })
+            details(data)
+        }
+        const handleDelete = (data) => {
+            selectRow = data.parentElement.parentElement
+            if (window.confirm("Do you really want to delete?")) {
+                const tab = document.getElementById('tabledata')
+                tab.deleteRow(selectRow.rowIndex)
+                selectRow = null
+                form1()
+            }
+        }
+
+    </script>
+</body>
+
+</html>
